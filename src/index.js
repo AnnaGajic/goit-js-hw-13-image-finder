@@ -43,8 +43,8 @@ const draw = (data) => {
         g.innerHTML = "";
 
     let scroll = true;
-    for (let index = 0; index < data.photos.length; index++) {
-        const element = data.photos[index];
+    for (let index = 0; index < data.hits.length; index++) {
+        const element = data.hits[index];
         g.insertAdjacentHTML('beforeend', templateCard(element));
 
         if(scroll){
