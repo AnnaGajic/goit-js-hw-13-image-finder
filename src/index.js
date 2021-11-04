@@ -30,9 +30,9 @@ function eventAttach(){
 function clickImageHandler(obj, evt){
     const id = obj.getAttribute('ed');
     // const { largeImageURL } = picSrch.getDataById(id);
-    const { src } = picSrch.getDataById(id);
+    const { largeImageURL } = picSrch.getDataById(id);
     
-    const instance = basicLightbox.create(`<img src="${src.original}" width="800" height="600">`);
+    const instance = basicLightbox.create(`<img src="${largeImageURL}" width="800" height="600">`);
     instance.show()
     
 }
@@ -42,19 +42,14 @@ const draw = (data) => {
     if(!picSrch.isNext())
         g.innerHTML = "";
 
-    let scroll = true;
-    for (let index = 0; index < data.photos.length; index++) {
-        const element = data.photos[index];
+    for (let index = 0; index < data.hits.length; index++) {
+        const element = data.hits[index];
         g.insertAdjacentHTML('beforeend', templateCard(element));
-
-        if(scroll){
-            g.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end', });
-            scroll = false;
-        }
     }
+    g.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end', });
     eventAttach();
     
-    if(data.total_results > (data.per_page * data.page)){
+    if(data.totalHits > (picSrch.perPage * picSrch.pageNumber)){
         showMore.style.display = 'block';
     }
     else{

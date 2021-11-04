@@ -14,27 +14,21 @@ class PicSearch{
 
     getUrl(){
         let q = this.query.replace(' ', '+');
-        return `https://api.pexels.com/v1/search?query=${q}&per_page=${this.perPage}&page=${this.pageNumber}`;
+        return `https://pixabay.com/api/?key=${this.key}&q=${q}&per_page=${this.perPage}&page=${this.pageNumber}`;
+        // return `https://api.pexels.com/v1/search?query=${q}&per_page=${this.perPage}&page=${this.pageNumber}`;
+        
     }
-
     fetch(){
         let url = this.getUrl();
         
         return new Promise((resolve, reject) => {
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': this.key1
-                },
-                referrerPolicy: 'no-referrer',
-              })
+            fetch(url)
             .then(res => res.json())
             .then((data) => { 
 
                 this.total = data.totalHits;
                 this.totalPages = Math.floor(this.total / this.perPage);
-                this.data = this.data.concat(data.photos);
+                this.data = this.data.concat(data.hits);
 
                 resolve(data); 
             })
