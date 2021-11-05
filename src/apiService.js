@@ -67,6 +67,7 @@ class PicSearch{
 
     setSearch(q){
         this.lastAction = 'set_search';
+        this.pageNumber = 1;
         if(this.query != q)
             this.data = [];
 
